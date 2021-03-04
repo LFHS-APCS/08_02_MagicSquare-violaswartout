@@ -18,6 +18,8 @@ public class MagicSquare
         array = input;
     }
 
+    
+
     /**
      * Tests to see if array is indeed a magic square
      * @return true if array is a magic square
@@ -25,7 +27,20 @@ public class MagicSquare
      */
     public boolean isMagicSquare()
     {
-        return false;   // complete this method
+      if (!checkSquare()) {
+        return false;
+      }
+      int sum = rowSum();
+      if(!checkRows(sum)) {
+        return false;
+      }
+      if (!checkColumns(sum)) {
+        return false;
+      }
+      if (!checkDiagonals(sum)) {
+        return false;
+      }
+      return true;
     }
 
     /**
@@ -45,4 +60,87 @@ public class MagicSquare
         }
         return result;
     }
+
+  public boolean checkRows(int sum) {
+    for (int i = 0; i < array.length; i++) {
+      int r = rowSum();
+      if (r != sum) {
+        return false;
+      }
+      return true;
+    }
+  }
+   
+  public boolean checkColumns(int sum) {
+    for (int i = 0; i < array[0].length; i++) {
+      int c = colSum();
+      if (c != sum) {
+        return false;
+      }
+      return true;
+    }
+  }
+
+  public boolean checkSquare() {
+    for (int i = 0; i < array.length; i++) {
+      if (array.length != array[i].length) {
+        return false;
+      }
+    }
+  }
+
+  public boolean checkDiagonals(int sum){
+    int sum0 = diag0Sum();
+    if (sum != sum0) {
+      return false;
+    }
+    int sum1 = diag1Sum(); 
+    if (sum != sum1) {
+      return false;
+    }
+    return true;
+  }
+
+  private int diag0Sum() {
+    int sum = 0;
+    for (int i = 0; i < array.length; i++) {
+      sum += array[i][i];
+    }
+    return sum;
+  }
+
+  private int diag1Sum() {
+    int sum = 0;
+    for (int row = 0, col = array.length - 1; row < array.length; row++, col-- ) {
+      sum += array[row][col];
+    }
+    return sum;
+  }
+
+  public int rowSum() {
+    int rowSum = 0;
+    for (int i = 0; i < array.length; i++) {
+      rowSum = 0;
+      for (int j = 0; j < array[i].length; j++) {
+        rowSum = rowSum + array[i][j];
+      }
+    }
+  }
+
+  public int colSum() {
+    int colSum = 0;
+    for(int i = 0; i < array[i].length; i++) {
+      colSum = 0;    
+      for(int j = 0; j < array.length; j++) {
+          colSum = colSum + array[j][i];   
+      } 
+    }   
+  }
+            
+                
+           
+      
+
+
 }
+ 
